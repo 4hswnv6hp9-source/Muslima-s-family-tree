@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oilamiz shajarasi</title>
+<meta name="description" content="Oilamiz shajarasi: bobolardan nevaralargacha.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Literata:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#E6EEE3;--ink:#10302A;--muted:#4C6860;--card:#F8FBF5;--line:#2F7A6B;--gold:#E2A31B;--anor:#B3304B;--turq:#1B8A94;--olive:#6C8B2F;--shadow:rgba(16,48,42,.18);color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#0D2421;--ink:#E8F1EA;--muted:#9DB8AE;--card:#17332F;--line:#46A592;--shadow:rgba(0,0,0,.45)}}
+*{box-sizing:border-box;margin:0}
+body{font:16px/1.6 Literata,Georgia,serif;color:var(--ink);min-height:100vh;
+ background:repeating-linear-gradient(45deg,rgba(27,138,148,.07) 0 2px,transparent 2px 26px),repeating-linear-gradient(-45deg,rgba(179,48,75,.06) 0 2px,transparent 2px 26px),var(--bg)}
+h1,h2,h3,.nm,.stats b,.tag,.tg,.chip{font-family:"Bricolage Grotesque",system-ui,sans-serif}
+header{max-width:900px;margin:0 auto;padding:0 20px 8px}
+.band{height:12px;margin:0 -20px 22px;background:repeating-linear-gradient(90deg,var(--anor) 0 16px,var(--gold) 16px 32px,var(--turq) 32px 48px,var(--olive) 48px 64px)}
+h1{font-weight:800;font-size:clamp(2.1rem,9vw,3.8rem);line-height:1.02;letter-spacing:-.025em}
+.sub{max-width:34em;margin-top:10px;color:var(--muted)}
+.stats{display:flex;gap:22px;margin:16px 0 14px}
+.stats b{font-size:1.9rem;font-weight:800;display:block;line-height:1}
+.stats span{font-size:.85rem;color:var(--muted)}
+#q{width:100%;max-width:340px;font:inherit;padding:10px 16px;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:99px}
+#q:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.hint{font-size:.8rem;color:var(--muted);margin-top:8px}
+.stage{overflow-x:auto;padding:30px 12px 60px;-webkit-overflow-scrolling:touch}
+.tree{width:max-content;min-width:100%;display:flex;justify-content:center}
+.tree ul{display:flex;justify-content:center;padding:22px 0 0;position:relative}
+.tree>ul{padding-top:0}
+.tree li{list-style:none;position:relative;padding:22px 8px 0;display:flex;flex-direction:column;align-items:center}
+.tree li::before,.tree li::after{content:"";position:absolute;top:0;right:50%;width:50%;height:22px;border-top:2px solid var(--line)}
+.tree li::after{right:auto;left:50%;border-left:2px solid var(--line)}
+.tree li:only-child{padding-top:0}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:first-child::before,.tree li:last-child::after{border:0}
+.tree li:last-child::before{border-right:2px solid var(--line);border-radius:0 14px 0 0}
+.tree li:first-child::after{border-radius:14px 0 0 0}
+.tree ul ul::before{content:"";position:absolute;top:0;left:50%;border-left:2px solid var(--line);height:22px}
+.tree>ul>li{padding-top:0}
+.tree>ul>li::before,.tree>ul>li::after{display:none}
+.collapsed>ul{display:none}
+.node{position:relative;display:flex;flex-direction:column;align-items:center}
+.card{position:relative;display:block;width:132px;padding:12px 8px 12px;font:inherit;color:inherit;text-align:center;cursor:pointer;
+ background:var(--card);border:2px solid var(--a);border-radius:28px 6px 28px 6px;box-shadow:0 6px 16px var(--shadow);transition:transform .2s}
+.card:hover,.card:focus-visible{transform:translateY(-3px) rotate(-1.2deg)}
+.card:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.medal{width:58px;height:58px;margin:0 auto 7px;border-radius:50%;border:3px solid var(--a);box-shadow:0 0 0 3px var(--card),0 0 0 5px var(--a);display:grid;place-items:center;overflow:hidden;
+ background:color-mix(in srgb,var(--a) 20%,var(--card));font:800 1.1rem "Bricolage Grotesque",system-ui,sans-serif;color:var(--ink)}
+.medal img{width:100%;height:100%;object-fit:cover}
+.nm{font-weight:600;font-size:.95rem;line-height:1.2}
+.yr,.sp{font-size:.76rem;color:var(--muted);line-height:1.3;margin-top:3px}
+.card.me{box-shadow:0 0 0 4px rgba(226,163,27,.45),0 8px 22px var(--shadow)}
+.tag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:#10302A;font-weight:800;font-size:.75rem;padding:2px 12px;border-radius:99px}
+.hit{outline:3px solid var(--gold);outline-offset:3px}
+.dim{opacity:.35}
+.tg{position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);min-width:32px;height:30px;padding:0 8px;border-radius:99px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font-weight:800;font-size:.8rem;cursor:pointer;z-index:2}
+.tg:focus-visible,.x:focus-visible,.chip:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+#sheet{position:fixed;inset:0;display:flex;align-items:flex-end;justify-content:center;background:rgba(5,20,17,.6);z-index:10}
+#sheet[hidden]{display:none}
+.panel{position:relative;width:min(560px,100%);max-height:86vh;overflow:auto;background:var(--card);border-top:6px solid var(--a);border-radius:28px 28px 0 0;padding:24px 22px calc(28px + env(safe-area-inset-bottom,0px))}
+.top{display:flex;gap:16px;align-items:center;margin-bottom:14px;padding-right:36px}
+.top .medal{width:76px;height:76px;margin:0;flex:none;font-size:1.4rem}
+h2{font-size:1.6rem;line-height:1.1;font-weight:800}
+.panel .yr{font-size:.9rem}
+.bio{margin:6px 0 14px}
+h3{font-size:.95rem;font-weight:600;margin:14px 0 6px;color:var(--muted)}
+.chip{font-size:.9rem;font-weight:600;margin:0 6px 6px 0;padding:6px 14px;color:var(--ink);background:transparent;border:2px solid var(--line);border-radius:99px;cursor:pointer}
+.x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:transparent;color:var(--ink);font-size:1rem;cursor:pointer}
+.nm,.sp,.yr{overflow-wrap:anywhere}
+@media (max-width:600px){.card{width:114px;padding:10px 6px}.medal{width:48px;height:48px;font-size:1rem}.nm{font-size:.86rem}.tree li{padding-left:5px;padding-right:5px}}
+@media (prefers-reduced-motion:no-preference){
+ .node{animation:grow .6s both;animation-delay:calc(var(--i) * .28s)}
+ .card.me{animation:pulse 2.6s ease-in-out infinite}
+ .panel{animation:rise .25s ease-out}
+}
+@keyframes grow{from{opacity:0;transform:scale(.8) translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{box-shadow:0 0 0 12px rgba(226,163,27,0),0 8px 22px var(--shadow)}}
+@keyframes rise{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+</style>
+</head>
+<body>
+<header>
+ <div class="band"></div>
+ <h1 id="title"></h1>
+ <p class="sub" id="sub"></p>
+ <div class="stats" id="stats"></div>
+ <input id="q" type="search" placeholder="Ism boʻyicha qidirish" aria-label="Ism boʻyicha qidirish">
+ <p class="hint">Daraxtni yon tomonga surib koʻring. Kartani bossangiz, hikoya ochiladi.</p>
+</header>
+<main class="stage"><div class="tree" id="tree"></div></main>
+<div id="sheet" hidden><div class="panel" role="dialog" aria-modal="true" aria-label="Shaxs haqida"></div></div>
+
+<script>
+/* ============ SHU YERNI OʻZGARTIRING ============
+   n: ism, s: turmush oʻrtogʻi, y: yillar, b: hikoya,
+   p: rasm fayli (masalan "rasm.jpg"), me:true — "Men" belgisi,
+   c: farzandlari roʻyxati. Avlodlar ichma-ich yoziladi. */
+const SITE={title:"Oilamiz shajarasi",sub:"Bobolarimizdan nevaralarimizgacha. Har bir shox — oilamizning bir hikoyasi."};
+// sy: turmush oʻrtogʻining yillari. Oʻzingizga "me:true" qoʻshsangiz, oltin "Men" belgisi chiqadi.
+const FAMILY={n:"Tojidin",y:"1911 – 1963",s:"Tojiniso",sy:"1909 – 1976",c:[{n:"Tadjiyev Axror",y:"1932 – 2015",s:"Shapoat",sy:"1935",c:[{n:"Tadjiyev Atxam",y:"11.02.1958",s:"Tadjiyeva Dilorom",sy:"1958",c:[{n:"Dilfuza",y:"26.05.1981"},
+{n:"Feruza",y:"3.06.1983"},
+{n:"Mavluda",y:"8.11.1986"},
+{n:"Dilafruz",y:"11.01.1991"}]},
+{n:"Tadjiyev Hamdam",y:"04.11.1959",s:"Tadjiyeva Fotima",sy:"18.12.1959",c:[{n:"Tadjiyev Alisher",y:"12.04.1983",s:"Shaxnoza",sy:"17.05.1984",c:[{n:"Mahina",y:"19.02.2007"},
+{n:"Osiyoxon",y:"7.05.2010"},
+{n:"Muhammad",y:"7.05.2010"},
+{n:"Yusuf",y:"16.04.2019"}]},
+{n:"Tadjiyev Erkin",y:"15.03.1985",s:"Aziza",sy:"14.01.1986",c:[{n:"Zubayir",y:"22.01.2008"},
+{n:"Muslima",y:"22.02.2009"},
+{n:"Hadicha",y:"30.12.2013 – 1.07.2016"},
+{n:"Soliha",y:"17.07.2017"},
+{n:"Muhammad Amin",y:"25.08.2025"}]},
+{n:"Tadjiyeva Sevara",y:"14.07.1990 – 1.07.2016",s:"Azamat",sy:"9.07.1986",c:[{n:"Muxsina",y:"17.01.2013"}]},
+{n:"Shukurullo",y:"11.02.2000"}]},
+{n:"Tadjiyeva Shoiraxon",y:"1961 – 2020",s:"Abduxakim",sy:"1959 – 2020",c:[{n:"Shohista",y:"1983"},
+{n:"Shaxnoza",y:"1985"},
+{n:"Abduvohit",y:"1987"},
+{n:"Donoxon",y:"1988"},
+{n:"Nilufar",y:"1989"},
+{n:"Dildora",y:"1992"}]},
+{n:"Tadjiyev Akmaljon",y:"2.11.1963",s:"Tadjiyeva Dilfuzaxon",sy:"1.5.1964",c:[{n:"Zuhra",y:"25.05.1990"},
+{n:"Hasan",y:"25.05.1990"},
+{n:"Zahro",y:"12.09.1993"}]}]},
+{n:"Uyalmasxon",y:"1934 – 2008"},
+{n:"Mirzabdulla",y:"1936 – 2019"},
+{n:"Oynisa",y:"1942 – 2001"}]};
+/* =================================================== */
+
+const ACC=["var(--anor)","var(--turq)","var(--olive)"];
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const ini=n=>n.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase();
+const byId={},parent={};let uid=0,people=0,gens=0;
+(function walk(p,par,d){p.id="p"+uid++;p.d=d;byId[p.id]=p;if(par)parent[p.id]=par;people+=p.s?2:1;gens=Math.max(gens,d+1);(p.c||[]).forEach(k=>walk(k,p,d+1))})(FAMILY,null,0);
+const acc=p=>p.me?"var(--gold)":ACC[p.d%ACC.length];
+
+document.getElementById("title").textContent=SITE.title;
+document.getElementById("sub").textContent=SITE.sub;
+document.title=SITE.title;
+const st=document.getElementById("stats");
+[[people,"kishi"],[gens,"avlod"]].forEach(([v,l])=>{const d=el("div");d.append(el("b",null,v),el("span",null,l));st.append(d)});
+
+function medal(p){const m=el("div","medal");if(p.p){const i=new Image();i.src=p.p;i.alt=p.n;m.append(i)}else m.textContent=ini(p.n);return m}
+
+function build(p){
+ const li=el("li"),node=el("div","node"),b=el("button","card");
+ node.style.setProperty("--i",p.d);
+ b.style.setProperty("--a",acc(p));
+ b.dataset.id=p.id;
+ b.setAttribute("aria-label",p.n+(p.y?", "+p.y:""));
+ if(p.me)b.append(el("span","tag","Men"));
+ if(p.me)b.classList.add("me");
+ b.append(medal(p),el("div","nm",p.n));
+ if(p.y)b.append(el("div","yr",p.y));
+ if(p.s)b.append(el("div","sp","& "+p.s));
+ if(p.s&&p.sy)b.append(el("div","yr",p.sy));
+ b.onclick=()=>openSheet(p);
+ node.append(b);li.append(node);
+ if(p.c&&p.c.length){
+  const ul=el("ul");p.c.forEach(k=>ul.append(build(k)));li.append(ul);
+  const t=el("button","tg","−");t.setAttribute("aria-label","Shoxni yigʻish yoki ochish");
+  li._set=v=>{li.classList.toggle("collapsed",v);t.textContent=v?"+"+p.c.length:"−";t.setAttribute("aria-expanded",String(!v))};
+  t.onclick=()=>li._set(!li.classList.contains("collapsed"));
+  node.append(t);
+ }
+ return li;
+}
+const tree=document.getElementById("tree"),root=el("ul");
+root.append(build(FAMILY));tree.append(root);
+const cards=[...document.querySelectorAll(".card")];
+
+const sheet=document.getElementById("sheet"),panel=sheet.firstElementChild;
+const full=k=>k.n+(k.s?" & "+k.s:"");
+function chip(k){const c=el("button","chip",full(k));c.onclick=()=>{openSheet(k);const t=document.querySelector('[data-id="'+k.id+'"]');if(t)t.scrollIntoView({block:"center",inline:"center"})};return c}
+function openSheet(p){
+ panel.replaceChildren();panel.style.setProperty("--a",acc(p));
+ const x=el("button","x","✕");x.setAttribute("aria-label","Yopish");x.onclick=closeSheet;
+ const top=el("div","top"),h=el("div");
+ h.append(el("h2",null,p.n));
+ if(p.y)h.append(el("p","yr",p.y));
+ if(p.s)h.append(el("p","yr","Turmush oʻrtogʻi: "+p.s+(p.sy?" ("+p.sy+")":"")));
+ top.append(medal(p),h);
+ panel.append(x,top,el("p","bio",p.b||"Hikoya hali yozilmagan."));
+ const par=parent[p.id];
+ if(par){panel.append(el("h3",null,"Ota-onasi"),chip(par))}
+ if(p.c&&p.c.length){panel.append(el("h3",null,"Farzandlari"));p.c.forEach(k=>panel.append(chip(k)))}
+ sheet.hidden=false;history.replaceState(null,"","#"+p.id);x.focus();
+}
+function closeSheet(){sheet.hidden=true;history.replaceState(null,"",location.pathname+location.search)}
+sheet.onclick=e=>{if(e.target===sheet)closeSheet()};
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!sheet.hidden)closeSheet()});
+
+document.getElementById("q").oninput=e=>{
+ const s=e.target.value.trim().toLowerCase();let first;
+ if(s)document.querySelectorAll("li.collapsed").forEach(l=>l._set(false));
+ cards.forEach(c=>{const p=byId[c.dataset.id];const hit=!!s&&(p.n+" "+(p.s||"")).toLowerCase().includes(s);
+  c.classList.toggle("hit",hit);c.classList.toggle("dim",!!s&&!hit);if(hit&&!first)first=c});
+ if(first)first.scrollIntoView({block:"center",inline:"center",behavior:"smooth"});
+};
+
+const h0=location.hash.slice(1);
+if(byId[h0])openSheet(byId[h0]);
+else setTimeout(()=>cards[0].scrollIntoView({block:"nearest",inline:"center"}),50);
+</script>
+</body>
+</html>
